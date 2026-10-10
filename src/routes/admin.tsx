@@ -327,62 +327,7 @@ function BrandingTab() {
       </button>
 
       <SocialLinksManager />
-      <BackgroundStickersManager />
     </section>
-  );
-}
-
-/** Zarządzanie zdjęciami/naklejkami w tle strony (settings.bg_stickers). */
-function BackgroundStickersManager() {
-  const { data } = useSettings();
-  const refresh = useRefresh();
-  const [urls, setUrls] = useState<string[]>([]);
-  const [manual, setManual] = useState("");
-  const [msg, setMsg] = useState("");
-
-  useEffect(() => {
-    if (data) setUrls((data["bg_stickers"] ?? "").split("\n").map((u) => u.trim()).filter(Boolean));
-  }, [data]);
-
-  const save = async (next: string[]) => {
-    setUrls(next);
-    await saveSetting("bg_stickers", next.join("\n"));
-    await refresh("settings");
-    setMsg("Zapisano tło.");
-  };
-
-  return (
-    <div className="mt-8 border-t border-border pt-6">
-      <h3 className="mb-1 text-base font-bold">Zdjęcia w tle</h3>
-      <p className="mb-4 text-xs text-muted-foreground">
-        Dodaj własne grafiki — pojawią się jako naklejki w tle całej strony.
-      </p>
-      <ImageUploader
-        urls={urls}
-        folder="background"
-        label="Dodaj zdjęcia tła z urządzenia"
-        onChange={(u) => void save(u)}
-      />
-      <div className="mt-3 flex flex-wrap gap-2">
-        <input
-          className={`${input} sm:max-w-md`}
-          placeholder="Albo wklej adres URL grafiki"
-          value={manual}
-          onChange={(e) => setManual(e.target.value)}
-        />
-        <button
-          className={btn}
-          onClick={() => {
-            if (!manual.trim()) return;
-            void save([...urls, manual.trim()]);
-            setManual("");
-          }}
-        >
-          Dodaj URL
-        </button>
-      </div>
-      {msg ? <p className="mt-3 text-xs text-brand-cyan">{msg}</p> : null}
-    </div>
   );
 }
 

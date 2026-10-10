@@ -260,7 +260,8 @@
 @media(max-width:640px) { .header-inner { padding:12px 18px; } .brand-mark { font-size:19px; } .partner-inner { padding:12px 18px; } .partner-inner .partner-description { max-width:150px; } .home-layout { padding:28px 18px 50px; } .finder-intro { grid-template-columns:1fr; gap:24px; margin-bottom:34px; } .finder-heading { font-size:40px; } .shipping-offer { aspect-ratio:1.65; } .shipping-offer-content { padding:22px; } .shipping-offer h2 { font-size:26px; margin:10px 0; } .product-grid { grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; } .tools-grid { grid-template-columns:1fr; gap:0; } .tool-tiles { grid-template-columns:1fr; } .catalog-heading h2 { font-size:23px; } }
 .finder-intro > *,  .home-layout > *, .home-layout > * { min-width:0; }
 .shipping-offer { width:100%; min-height:310px; }
-.shipping-offer img { object-position:center 70%; filter:grayscale(1); }
-.shipping-offer-content { background:linear-gradient(90deg,color-mix(in oklab,var(--surface-deep) 88%,transparent),transparent); min-height:100%; }
-.shipping-offer h2 { max-width:320px; }
+.shipping-offer img { object-position:center; }
+.shipping-offer-content { min-height:100%; }
+.shipping-offer h2 { max-width:70%; }
+.shipping-offer p { max-width:60%; }
 @media(max-width:640px) { .shipping-offer { min-height:290px; aspect-ratio:1.22; } .finder-intro { width:100%; } .header-inner { gap:12px; } .header-inner > .relative { margin-left:auto; } .brand-mark { font-size:17px; } .header-inner > .relative .inline-flex:last-of-type { font-size:10px; padding-inline:8px; } }

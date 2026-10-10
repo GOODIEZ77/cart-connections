@@ -1,4 +1,5 @@
 # RENJP
+- [x] Replace homepage promotion artwork with matching colors and a right-side −25% tag; preserve copy and remove background-logo uploads.
 - [x] Configure administrator login/password securely and verify sign-in.
 - [x] Add screenshot categories and match category emojis in the catalogue and management panel.
 - [x] Restore original presentation outside the homepage and original colors; keep only requested homepage layout changes and secure authentication.
