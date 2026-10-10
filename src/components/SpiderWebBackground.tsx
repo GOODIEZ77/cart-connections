@@ -88,7 +88,9 @@ export function SpiderWebBackground() {
       const speed = Math.min(Math.hypot(vel.x, vel.y), 40);
 
       ctx.clearRect(0, 0, w, h);
-      const R = Math.hypot(w, h) * 0.56;
+      // bounded web: a distinct object you can see glide after the cursor,
+      // instead of a screen-filling mesh where the motion is invisible
+      const R = Math.min(w, h) * 0.4;
       const dirs: Array<[number, number]> = [];
       for (let i = 0; i < SPOKES; i++) {
         const a = (i / SPOKES) * Math.PI * 2 + Math.PI / SPOKES;
