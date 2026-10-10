@@ -1,4 +1,6 @@
 # RENJP
+- [ ] Configure administrator login/password securely and verify sign-in (waiting for chosen credentials).
+- [ ] Match category emojis to the screenshot categories.
 - [x] Restore original presentation outside the homepage and original colors; keep only requested homepage layout changes and secure authentication.
 - [x] Restore admin login/password without email; verify login, settings save and uploaded homepage banner.
 - [x] Import public application pages and tools; verify route rendering.
