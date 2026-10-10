@@ -2,6 +2,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { useMemo, useState } from 'react';
 import { ArrowRight, Search, Package, ScanSearch, Link2, ChevronRight } from 'lucide-react';
 import { categoryEmoji } from '@/lib/categoryEmoji';
+import { SpiderWebBackground } from '@/components/SpiderWebBackground';
 import { ProductCard } from '@/components/ProductCard';
 import { ProductModal } from '@/components/ProductModal';
 import { useProducts, useAgents, useCategories, useSettings, type Product } from '@/lib/store';
