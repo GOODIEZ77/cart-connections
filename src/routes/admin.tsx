@@ -1,4 +1,5 @@
 import { changeAdminCredentials } from "@/lib/secure.functions";
+import { categoryEmoji } from "@/lib/categoryEmoji";
 import { supabase } from "@/integrations/supabase/client";
 import { getPanelSession } from "@/lib/secure.functions";
 import { createFileRoute, Link } from "@tanstack/react-router";
@@ -1058,6 +1059,7 @@ function CategoriesTab() {
             key={c.id}
             className="flex items-center gap-2 rounded-lg border border-border bg-secondary px-3 py-2 text-xs"
           >
+            <span aria-hidden="true">{categoryEmoji(c.name)}</span>
             <span className="font-semibold">{c.name}</span>
             <button
               className="text-primary"

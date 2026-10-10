@@ -19,3 +19,4 @@
 - Homepage promotional photos, copy and destinations read admin-managed settings; defaults apply only when a field is empty.
 
 - Scope homepage layout styling to the homepage; preserve the original shared palette and other public surfaces to avoid cross-page redesigns.
+- Use the shared category symbol resolver in catalogue and category management so renamed categories keep consistent automatic symbols without schema changes.
