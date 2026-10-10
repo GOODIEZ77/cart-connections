@@ -64,11 +64,11 @@ export function SpiderWebBackground() {
 
       // spokes
       ctx.lineWidth = 1;
-      for (const [dx, dy] of dirs) {
+      for (const dir of dirs) {
         ctx.strokeStyle = `rgba(${LINE}, 0.09)`;
         ctx.beginPath();
         ctx.moveTo(pos.x, pos.y);
-        ctx.lineTo(pos.x + dx * R, pos.y + dy * R);
+        ctx.lineTo(pos.x + dir[0] * R, pos.y + dir[1] * R);
         ctx.stroke();
       }
 
@@ -79,15 +79,15 @@ export function SpiderWebBackground() {
         ctx.strokeStyle = `rgba(${LINE}, ${alpha.toFixed(3)})`;
         ctx.beginPath();
         for (let i = 0; i <= SPOKES; i++) {
-          const [dx1, dy1] = dirs[i % SPOKES];
-          const [dx2, dy2] = dirs[(i + 1) % SPOKES];
-          const x1 = pos.x + dx1 * radius;
-          const y1 = pos.y + dy1 * radius;
-          const x2 = pos.x + dx2 * radius;
-          const y2 = pos.y + dy2 * radius;
+          const a = dirs[i % SPOKES] ?? [1, 0];
+          const b = dirs[(i + 1) % SPOKES] ?? [1, 0];
+          const x1 = pos.x + a[0] * radius;
+          const y1 = pos.y + a[1] * radius;
+          const x2 = pos.x + b[0] * radius;
+          const y2 = pos.y + b[1] * radius;
           const sag = radius * 0.07;
-          const cx = (x1 + x2) / 2 - ((dx1 + dx2) / 2) * sag;
-          const cy = (y1 + y2) / 2 - ((dy1 + dy2) / 2) * sag;
+          const cx = (x1 + x2) / 2 - ((a[0] + b[0]) / 2) * sag;
+          const cy = (y1 + y2) / 2 - ((a[1] + b[1]) / 2) * sag;
           if (i === 0) ctx.moveTo(x1, y1);
           ctx.quadraticCurveTo(cx, cy, x2, y2);
         }
