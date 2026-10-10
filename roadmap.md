@@ -1,0 +1,15 @@
+# RENJP
+- [x] Restore original presentation outside the homepage and original colors; keep only requested homepage layout changes and secure authentication.
+- [x] Restore admin login/password without email; verify login, settings save and uploaded homepage banner.
+- [x] Import public application pages and tools; verify route rendering.
+- [x] Rebuild homepage with PKMR offer and smooth cursor spiderweb.
+- [x] Keep outfit link in menu only; tool tiles under the hero; categories above products; weight calculator only on the tools page.
+- [x] Sort products without photos last in the shared catalogue used by browsing surfaces.
+- [x] Create Cloud schema, secure panel authentication, private photo storage and archive endpoint.
+- [x] Implement streaming AI background removal; gateway returns completed image.
+- [x] Verify filters, calculator, mobile width and unsigned-access rejection.
+- [ ] Import existing records, user IDs/emails and photo bytes (waiting for owner exports).
+- [x] Verify admin settings writes and signed-in image upload/display.
+- [ ] Verify seller invitations and original account ownership (waiting for source user data).
+- [ ] Verify live QC/tracking and external agent integrations (waiting for real test links/numbers and any source integration setup).
+- [ ] Verify hosted cutover (app unpublished; publishing not requested).

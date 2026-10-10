@@ -8,3 +8,14 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Preserve the target TanStack bootstrap and generated Cloud integration modules when importing source; these bind the app to its runtime.
+- Authenticate admin operations with server-signed, expiring sessions and server-only credentials; seller operations use Cloud identity and protected roles. Never bundle credentials.
+- Keep immutable product/QC image bytes in private storage and expose only intentionally public archive/catalog prefixes through the cached photo endpoint.
+- Use streaming image editing with an authenticated server route; persist terminal access blocks and never automatically retry denied requests.
+
+- Strip caller-provided product IDs from seller inserts and disallow seller upserts to prevent overwriting another store.
+
+- Homepage promotional photos, copy and destinations read admin-managed settings; defaults apply only when a field is empty.
+
+- Scope homepage layout styling to the homepage; preserve the original shared palette and other public surfaces to avoid cross-page redesigns.
