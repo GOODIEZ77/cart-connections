@@ -234,8 +234,8 @@
 .home-layout .eyebrow { font-size:10px; text-transform:uppercase; letter-spacing:0; color:var(--primary); font-weight:700; }
 .finder-search { display:flex; align-items:center; gap:12px; margin-top:26px; padding:6px 6px 6px 16px; border:1px solid var(--border); border-radius:999px; background:var(--surface); }
 .finder-search input { outline:none; flex:1; min-width:0; background:transparent; font-size:13px; }
-.category-strip { display:flex; gap:7px; margin-top:16px; overflow-x:auto; padding-bottom:5px; }
-.category-strip .category-chip { flex-shrink:0; height:30px; font-size:10px; border-radius:6px; }
+.category-strip { display:flex; flex-wrap:wrap; gap:7px; margin-top:16px; }
+.category-strip .category-chip { height:30px; font-size:10px; border-radius:6px; }
 .shipping-offer { position:relative; overflow:hidden; aspect-ratio:1.22; border-radius:8px; background:var(--surface); box-shadow:var(--page-shadow); }
 .shipping-offer img { position:absolute; inset:0; height:100%; width:100%; object-fit:cover; }
 .shipping-offer-content { position:relative; padding:28px; color:var(--foreground); }
