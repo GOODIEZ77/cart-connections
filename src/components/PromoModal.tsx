@@ -2,17 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { useAgents, useSettings } from "@/lib/store";
 import { useLang } from "@/lib/i18n";
 
-/**
- * Ścieżka, pod którą otwarto stronę. Moduł wykonuje się raz — przy ładowaniu
- * dokumentu — więc kliknięcia w podstrony (nawigacja wewnątrz aplikacji) jej nie zmieniają.
- */
-const ENTRY_PATH = typeof window === "undefined" ? "/" : window.location.pathname;
-const SHOWN_ON_LOAD =
-  ENTRY_PATH !== "/" && !ENTRY_PATH.startsWith("/admin") && !ENTRY_PATH.startsWith("/seller");
-
-/** Okienko otwiera się najwyżej raz na załadowanie strony. */
-let openedThisLoad = false;
-
 /** 12 godzin w sekundach — licznik odlicza od nowa przy każdym wejściu. */
 const COUNTDOWN = 12 * 60 * 60;
 
