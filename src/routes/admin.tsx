@@ -16,7 +16,8 @@ import {
 } from "@/lib/secure.functions";
 import { toast } from "sonner";
 import { clearPanelToken, getPanelToken, setPanelToken } from "@/lib/panelToken";
-import { convertLink, extractSourceLink } from "@/lib/linkConverter";
+import { buildSourceUrl, convertLink, extractSourceLink } from "@/lib/linkConverter";
+import { PROMO_FIELDS, promoKey, promoSlug } from "@/components/PromoModal";
 import { ProductCard } from "@/components/ProductCard";
 import { ImageUploader } from "@/components/ImageUploader";
 import { scrapeProduct } from "@/lib/scrape.functions";
@@ -235,6 +236,7 @@ function AdminPage() {
       </div>
 
       {tab === "branding" && <BrandingTab />}
+      {tab === "branding" && <PromoAlertTab />}
       {tab === "promos" && <PromosTab />}
       {tab === "agents" && <AgentsTab />}
       {tab === "categories" && <CategoriesTab />}
@@ -250,6 +252,62 @@ function AdminPage() {
   );
 }
 
+
+function PromoAlertTab() {
+  const { data: settings } = useSettings();
+  const { data: agents } = useAgents();
+  const refresh = useRefresh();
+  const list = agents ?? [];
+  const [sel, setSel] = useState("lovegobuy");
+  const [form, setForm] = useState<Record<string, string>>({});
+  useEffect(() => {
+    const f: Record<string, string> = {};
+    for (const [k] of PROMO_FIELDS) f[k] = settings?.[promoKey(sel, k)] ?? "";
+    setForm(f);
+  }, [settings, sel]);
+  const save = async () => {
+    try {
+      for (const [k] of PROMO_FIELDS) await saveSetting(promoKey(sel, k), form[k] ?? "");
+      refresh("settings");
+      toast.success("Zapisano okienko bonusów");
+    } catch (e) {
+      toast.error((e as Error).message);
+    }
+  };
+  return (
+    <section className="mt-6 rounded-3xl border border-border bg-surface p-6 shadow-lg shadow-black/20">
+      <h2 className="mb-1 text-lg font-bold">Okienko bonusów (popup)</h2>
+      <p className="mb-4 text-xs text-muted-foreground">
+        Ustaw osobno dla każdego agenta: kod zniżkowy, link rejestracji i teksty. Puste pole = tekst domyślny. LoveGoBuy otwiera się jako pierwszy.
+      </p>
+      <div className="mb-4 flex flex-wrap gap-2">
+        {list.map((a) => {
+          const slug = promoSlug(a.name);
+          return (
+            <button key={a.id} className={slug === sel ? btn : btnGhost} onClick={() => setSel(slug)}>
+              {a.name}
+            </button>
+          );
+        })}
+      </div>
+      <div className="grid gap-4 sm:grid-cols-2">
+        {PROMO_FIELDS.map(([key, label]) => (
+          <label key={key} className="text-xs font-semibold text-muted-foreground">
+            {label}
+            <input
+              className={`${input} mt-1`}
+              value={form[key] ?? ""}
+              onChange={(e) => setForm({ ...form, [key]: e.target.value })}
+            />
+          </label>
+        ))}
+      </div>
+      <button className={`${btn} mt-4`} onClick={() => void save()}>
+        Zapisz dla tego agenta
+      </button>
+    </section>
+  );
+}
 
 const settingFields: [string, string][] = [
   ["brand_label", "Napis w lewym górnym rogu (np. PKMREPS x LOVEGOBUY)"],
@@ -1614,6 +1672,22 @@ function ProductsTab() {
               />
             ))}
           </div>
+
+          {(() => {
+            const src = [form.store_url, ...Object.values(form.agent_links)]
+              .map((u) => extractSourceLink(u ?? ""))
+              .find(Boolean);
+            if (!src) return null;
+            const raw = buildSourceUrl(src.platform, src.id);
+            return (
+              <p className="mt-3 break-all rounded-xl border border-dashed border-border px-3 py-2 text-xs text-muted-foreground">
+                Raw link ({src.platform}):{" "}
+                <a href={raw} target="_blank" rel="noreferrer" className="text-primary underline">
+                  {raw}
+                </a>
+              </p>
+            );
+          })()}
 
           <div className="mt-5 flex gap-2">
             <button className={btn} onClick={() => void save()}>

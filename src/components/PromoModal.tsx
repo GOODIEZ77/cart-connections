@@ -5,6 +5,20 @@ import { useLang } from "@/lib/i18n";
 /** 12 godzin w sekundach — licznik odlicza od nowa przy każdym wejściu. */
 const COUNTDOWN = 12 * 60 * 60;
 
+/** Klucz agenta w ustawieniach okienka bonusów, np. "lovegobuy". */
+export const promoSlug = (name: string) => name.trim().toLowerCase().replace(/[^a-z0-9]/g, "");
+export const promoKey = (slug: string, field: string) => `promo_${slug}_${field}`;
+export const PROMO_FIELDS: [string, string][] = [
+  ["link", "Link do rejestracji"],
+  ["code", "Kod zniżkowy"],
+  ["title", "Nagłówek (np. Zgarnij bonusy warte)"],
+  ["amount", "Kwota w nagłówku (np. 3500 zł)"],
+  ["desc", "Opis"],
+  ["row1", "Bonus powitalny (np. +3 500 PLN)"],
+  ["row2", "Zniżka na wysyłkę (np. −40%)"],
+  ["row3", "Kupony (np. −40%)"],
+];
+
 function pad(n: number) {
   return String(Math.max(0, n)).padStart(2, "0");
 }
@@ -52,12 +66,16 @@ export function PromoModal() {
   }, [open]);
 
   const list = useMemo(() => (agents ?? []).filter((a) => a.referral_url), [agents]);
-  const agent = list.find((a) => a.id === agentId) ?? list[0] ?? null;
+  const main = list.find((a) => promoSlug(a.name) === "lovegobuy") ?? list[0] ?? null;
+  const agent = list.find((a) => a.id === agentId) ?? main;
 
   if (!open || !settings) return null;
 
   const banner = agent?.avatar_url || settings["promo_banner_url"] || settings["agent_logo_url"];
-  const link = agent?.referral_url || settings["primary_agent_url"] || "#";
+  const slug = agent ? promoSlug(agent.name) : "";
+  const cfg = (f: string) => (settings[promoKey(slug, f)] ?? "").trim();
+  const link = cfg("link") || agent?.referral_url || settings["primary_agent_url"] || "#";
+  const code = cfg("code");
 
   const h = Math.floor(left / 3600);
   const m = Math.floor((left % 3600) / 60);
@@ -112,17 +130,29 @@ export function PromoModal() {
           {t("promo.kicker")}{agent ? ` ${agent.name}` : ""}.
         </p>
         <h2 className="mt-1 text-2xl font-black leading-tight">
-          {t("promo.title1")} <span className="text-gradient-brand">{t("promo.title2")}</span>
+          {cfg("title") || t("promo.title1")}{" "}
+          <span className="text-gradient-brand">{cfg("amount") || t("promo.title2")}</span>
         </h2>
         <p className="mt-2 text-[13px] text-muted-foreground">
-          {t("promo.desc")}
+          {cfg("desc") || t("promo.desc")}
         </p>
 
         <div className="mt-4 space-y-2">
-          <Row icon="🏷" label={t("promo.row1")} value="+3 500 PLN" />
-          <Row icon="🚚" label={t("promo.row2")} value="−40%" />
-          <Row icon="%" label={t("promo.row3")} value="−40%" />
+          <Row icon="🏷" label={t("promo.row1")} value={cfg("row1") || "+3 500 PLN"} />
+          <Row icon="🚚" label={t("promo.row2")} value={cfg("row2") || "−40%"} />
+          <Row icon="%" label={t("promo.row3")} value={cfg("row3") || "−40%"} />
         </div>
+
+        {code ? (
+          <button
+            type="button"
+            onClick={() => void navigator.clipboard?.writeText(code)}
+            className="mt-3 flex w-full items-center justify-between rounded-2xl border border-dashed border-primary/50 bg-surface px-4 py-2.5 text-sm"
+          >
+            <span className="text-muted-foreground">{t("promo.code", "Kod zniżkowy")}</span>
+            <span className="font-black tracking-widest text-primary">{code}</span>
+          </button>
+        ) : null}
 
         <div className="mt-4 flex gap-2">
           <Unit value={pad(h)} label={t("promo.hours")} />
