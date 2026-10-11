@@ -16,3 +16,8 @@
 - [ ] Verify seller invitations and original account ownership (waiting for source user data).
 - [ ] Verify live QC/tracking and external agent integrations (waiting for real test links/numbers and any source integration setup).
 - [ ] Verify hosted cutover (app unpublished; publishing not requested).
+- [x] Editable per-agent bonus popup (code, signup link, texts), LoveGoBuy first.
+- [x] Admin-only raw source link under agent links in product editor.
+- [x] Products CSV: Litbuy links → LoveGoBuy.
+- [x] Whole-site automatic translation for every language.
+- [ ] Seller login with username + password only (no email) — not started yet.

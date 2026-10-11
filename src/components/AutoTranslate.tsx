@@ -53,6 +53,7 @@ export function AutoTranslate() {
         if (applied.get(n) === n.data) continue;
         const src = n.data;
         original.set(n, src);
+        applied.delete(n);
         const key = src.trim();
         if (!key || !hasLetters(key)) continue;
         const tr = cache[key];
@@ -91,6 +92,10 @@ export function AutoTranslate() {
       stopped = true;
       obs.disconnect();
       clearTimeout(timer);
+      for (const n of nodes()) {
+        const o = original.get(n);
+        if (o !== undefined && applied.get(n) === n.data) n.data = o;
+      }
     };
   }, [lang]);
 

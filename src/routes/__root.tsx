@@ -16,6 +16,7 @@ import { reportLovableError } from "../lib/lovable-error-reporting";
 import { Header } from "@/components/Header";
 import { FloatingIsland } from "@/components/FloatingIsland";
 import { PromoModal } from "@/components/PromoModal";
+import { AutoTranslate } from "@/components/AutoTranslate";
 import { ScrollToTop } from "@/components/ScrollToTop";
 import { CosmicWeb } from "@/components/CosmicWeb";
 import { LanguageProvider } from "@/lib/i18n";
@@ -155,6 +156,7 @@ function RootComponent() {
           {!isPanel && <FloatingIsland />}
           {!isPanel && pathname !== "/" && <PromoModal />}
 
+          {!isPanel && <AutoTranslate />}
           <ScrollToTop />
           <Toaster richColors position="top-center" />
 
