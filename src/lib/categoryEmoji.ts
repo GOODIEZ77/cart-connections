@@ -4,6 +4,7 @@ export function categoryEmoji(name: string): string {
   if (category === 'wszystkie') return '🗂️';
   if (category.includes('nie ciuch')) return '🧩';
   if (category.includes('klapki')) return '🩴';
+  if (category.includes('perfum')) return '🧴';
   if (category.includes('buty')) return '👟';
   if (category.includes('spodenki')) return '🩳';
   if (category.includes('spodnie')) return '👖';
